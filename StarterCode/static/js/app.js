@@ -25,6 +25,7 @@ function metaData(idSelection) {
         var selectId = metadata.filter(person => person.id == idSelection);
         var valuesArray = selectId[0];
         var panel = d3.select("#sample-metadata");
+        // Use `.html("") to clear any existing metadata
         panel.html("");
         var demographics = Object.entries(valuesArray)
         demographics.forEach((item) => {
@@ -41,7 +42,9 @@ function barChart(idSelection) {
     var samples = bellyData.samples;
     var selectId = samples.filter(person => person.id == idSelection);
     var valuesArray = selectId[0];
-
+    // Variable for Bubble Chart
+    var IdsA = valuesArray.otu_ids
+    // Variable for Bar Chart
     var Ids = valuesArray.otu_ids.map(otu=>"otu " + otu);
     var Labels = valuesArray.otu_labels.slice(0,10);
     var Values = valuesArray.sample_values.slice(0,10);
@@ -49,6 +52,7 @@ function barChart(idSelection) {
     console.log(Ids)
     console.log(Labels)
     console.log(Values)
+    console.log(valuesArray.otu_ids)
     // ## Create a horizontal bar chart with a dropdown menu to display the top
     //  10 OTUs found in that individual.
     // Use sample_values as the values for the bar chart.
@@ -89,14 +93,14 @@ function barChart(idSelection) {
 
     // Bubble Chart
     var trace1 = {
-        x: Ids,
+        x: IdsA,
         y: Values,
         text: Labels,
         mode: 'markers',
         marker: {
             size: Values,
-            color: Ids
-        },
+            color: IdsA,
+       },
     
     };
 
